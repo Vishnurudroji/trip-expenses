@@ -1,8 +1,14 @@
 # ✈️ Trip Expense Tracker
 
-A modern real-time group expense management platform built using **React**, **Firebase Authentication**, and **Cloud Firestore**.
+### 🌐 Live Demo
 
-Trip Expense Tracker helps groups manage shared trip expenses, contributions, balances, and settlements without manual calculations or spreadsheets.
+**Application URL:**
+https://trip-expense-tracker-cccf9.web.app/
+
+> Manage group trip expenses, contributions, balances, and settlements in real time using Firebase and React.
+
+---
+
 
 ---
 
