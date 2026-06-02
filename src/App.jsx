@@ -6,6 +6,7 @@ import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import GroupManager from './components/GroupManager';
 import MembersList from './components/MembersList';
+import MyBalance from './components/MyBalance';
 import ExpenseList from './components/ExpenseList';
 
 export default function App() {
@@ -24,7 +25,7 @@ export default function App() {
     const unsubscribe = auth.onAuthStateChanged((currentUser) => {
       setUser(currentUser);
       setAuthLoading(false);
-      
+
       // Reset active group if user logs out
       if (!currentUser) {
         setActiveGroup(null);
@@ -70,7 +71,7 @@ export default function App() {
       <header className="bg-slate-900 border-b border-slate-800 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            
+
             {/* Logo / Brand */}
             <div className="flex items-center space-x-3 cursor-pointer" onClick={() => setCurrentTab('dashboard')}>
               <div className="bg-indigo-650 p-2 rounded-xl text-white shadow-md">
@@ -169,47 +170,55 @@ export default function App() {
 
       {/* Main Container */}
       <main className="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col gap-6">
-        
+
         {/* Navigation Tabs - Only shown when user has selected an active group */}
         {activeGroup ? (
           <nav className="flex space-x-1 bg-slate-900 p-1 rounded-xl border border-slate-800 self-start w-full sm:w-auto">
             <button
               onClick={() => setCurrentTab('dashboard')}
-              className={`flex-1 sm:flex-initial px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg transition-all ${
-                isActive('dashboard')
-                  ? 'bg-indigo-600 text-white shadow-sm shadow-indigo-650/20'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
-              }`}
+              className={`flex-1 sm:flex-initial px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg transition-all ${isActive('dashboard')
+                ? 'bg-indigo-600 text-white shadow-sm shadow-indigo-650/20'
+                : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
+                }`}
             >
               Dashboard
             </button>
             <button
               onClick={() => setCurrentTab('expenses')}
-              className={`flex-1 sm:flex-initial px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg transition-all ${
-                isActive('expenses')
-                  ? 'bg-indigo-600 text-white shadow-sm shadow-indigo-650/20'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
-              }`}
+              className={`flex-1 sm:flex-initial px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg transition-all ${isActive('expenses')
+                ? 'bg-indigo-600 text-white shadow-sm shadow-indigo-650/20'
+                : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
+                }`}
             >
               Expenses
             </button>
             <button
               onClick={() => setCurrentTab('members')}
-              className={`flex-1 sm:flex-initial px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg transition-all ${
-                isActive('members')
-                  ? 'bg-indigo-600 text-white shadow-sm shadow-indigo-650/20'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
-              }`}
+              className={`flex-1 sm:flex-initial px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg transition-all ${isActive('members')
+                ? 'bg-indigo-600 text-white shadow-sm shadow-indigo-650/20'
+                : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
+                }`}
             >
               Members
             </button>
+
+            <button
+              onClick={() => setCurrentTab('balance')}
+              className={`flex-1 sm:flex-initial px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg transition-all ${isActive('balance')
+                ? 'bg-indigo-600 text-white shadow-sm shadow-indigo-650/20'
+                : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
+                }`}
+            >
+              My Balance
+            </button>
+
+
             <button
               onClick={() => setCurrentTab('groups')}
-              className={`flex-1 sm:flex-initial px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg transition-all ${
-                isActive('groups')
-                  ? 'bg-indigo-600 text-white shadow-sm shadow-indigo-650/20'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
-              }`}
+              className={`flex-1 sm:flex-initial px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg transition-all ${isActive('groups')
+                ? 'bg-indigo-600 text-white shadow-sm shadow-indigo-650/20'
+                : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
+                }`}
             >
               Groups
             </button>
@@ -245,6 +254,9 @@ export default function App() {
           )}
           {activeGroup && isActive('members') && (
             <MembersList activeGroup={activeGroup} />
+          )}
+          {activeGroup && isActive('balance') && (
+            <MyBalance activeGroup={activeGroup} />
           )}
           {(!activeGroup || isActive('groups')) && (
             <GroupManager
